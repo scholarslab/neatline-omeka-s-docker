@@ -17,7 +17,7 @@ services:
       - db
     image: jeremyboggs/omeka-s
     volumes:
-      - ./neatline_plugins:/var/www/html/modules/
+      - ./neatline_plugins/Neatline:/var/www/html/modules/Neatline
     ports:
       - "9000:80"
     restart: always

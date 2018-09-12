@@ -14,8 +14,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     labels:
       - "traefik.enable=false"
-    networks:
-      - omekas
 
   omekaS_test:
     depends_on:
@@ -31,9 +29,6 @@ services:
       OMEKA_DB_USER: ${MYSQL_USER}
       OMEKA_DB_PASSWORD: ${MYSQL_PASSWORD}
       OMEKA_TABLE_PREFIX: ${OMEKA_TABLE_PREFIX}
-    networks:
-      - omekas
-      - thenetwork
     expose:
       - "80"
     labels:
@@ -43,7 +38,6 @@ services:
       - "traefik.backend=omekaS_test"
       - "traefik.frontend.rule=Host:testing.neatline.org"
 networks:
-  omekas:
-    external: false
-  thenetwork:
-    external: true
+  default:
+      external:
+        name: thenetwork

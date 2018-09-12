@@ -12,6 +12,10 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - omekas
 
   omekaS_test:
     depends_on:
@@ -27,7 +31,19 @@ services:
       OMEKA_DB_USER: ${MYSQL_USER}
       OMEKA_DB_PASSWORD: ${MYSQL_PASSWORD}
       OMEKA_TABLE_PREFIX: ${OMEKA_TABLE_PREFIX}
-    ports:
-      - "9000:80"
-    restart: always
-      
+    networks:
+      - omekas
+      - thenetwork
+    expose:
+      - "80"
+    labels:
+      - "traefik.docker.network=thenetwork"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.backend=omekaS_test"
+      - "traefik.frontend.rule=Host:testing.neatline.org"
+networks:
+  omekas:
+    external: false
+  thenetwork:
+    external: true

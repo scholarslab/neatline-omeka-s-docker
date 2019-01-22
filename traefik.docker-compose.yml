@@ -18,7 +18,7 @@ services:
   omekaS_test:
     depends_on:
       - omekaS_test_db
-    image: jeremyboggs/omeka-s
+    image: scholarslab/omeka-s
     container_name: omekaS_test
     volumes:
       - ./neatline_plugins/Neatline:/var/www/html/modules/Neatline
